@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        
+        <item name="android:windowAnimationStyle">@style/EnterExit.Activity</item>
+    </style>
+
+    <style name="EnterExit.Activity" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/right_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/right_slide_out</item>
     </style>
 
 </resources>
