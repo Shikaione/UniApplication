@@ -12,7 +12,7 @@
 
     <style name="EnterExit.Activity" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/right_slide_in</item>
-        <item name="android:windowExitAnimation">@anim/right_slide_out</item>
+        <item name="android:windowExitAnimation">@anim/right_slide_in</item>
     </style>
 
 </resources>

@@ -1,3 +1,12 @@
 <resources>
+    <!--Application String Name-->
     <string name="app_name">Search My City</string>
+
+    <!--Aplication Messages-->
+    <string name="welcome_message">Welcome</string>
+
+    <!--Buttons Strings-->
+    <string name="browse">Browse</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
 </resources>

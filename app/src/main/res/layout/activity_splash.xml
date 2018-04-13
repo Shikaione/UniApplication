@@ -5,14 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OpeningScreen">
+    tools:context=".SplashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:lottie_rawRes="@raw/opening"
+        app:lottie_imageAssetsFolder="images/"
+        app:lottie_fileName="logo_app.json"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 
