@@ -20,4 +20,11 @@
 
     <!--Fonts -->
     <string name="fontSerif">sans-serif</string>
+
+    <!--Navigation strings-->
+    <string name="favorite">Favorite places</string>
+    <string name="places">Featured places</string>
+    <string name="settings">Application settings</string>
+    <string name="account">Account settings</string>
+
 </resources>

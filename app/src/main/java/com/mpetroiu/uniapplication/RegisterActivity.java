@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         mAuth = FirebaseAuth.getInstance();
 
-        inputEmail = (EditText) findViewById(R.id.inputEmail);
+        inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPass);
         username = findViewById(R.id.username);
 
@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                             String name = username.getText().toString();
 
-                            DocumentReference docRef = mFirestore.getInstance().collection("users").document(mAuth.getUid());
+                            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(mAuth.getUid());
 
                             Map<String, String> userMap = new HashMap<>();
 

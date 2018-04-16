@@ -2,9 +2,11 @@ package com.mpetroiu.uniapplication;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -12,19 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    SharedPreferences prefs = null;
+    private DrawerLayout mDrawerLayout;
 
     private FirebaseAuth mAuth;
 
@@ -33,18 +30,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Creating the toolbar( menu ) when creating the activity
-         Toolbar menu = (Toolbar) findViewById(R.id.menu);
+         Toolbar menu = findViewById(R.id.menu);
+         mDrawerLayout = findViewById(R.id.drawer_layout);
          setSupportActionBar(menu);
 
-         //No title
-         getSupportActionBar().setTitle(null);
-         //Activating the back icon on the menu
-         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         //Sa nu vina bara de status peste navigation
-         menu.setPadding(0, getStatusBarHeight(), 0, 0);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            actionbar.setTitle(null);
+            menu.setPadding(0, getStatusBarHeight(), 0, 0);
+        }
 
-         //instantiaza autentificarea si firaestore(fara asta nu ar merge)
+
+
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        return true;
+                    }
+                });
+
          mAuth = FirebaseAuth.getInstance();
     }
 
@@ -82,8 +99,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Este User logat : " + mAuth.getCurrentUser());
         }
         //Search
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+
+       // MenuItem searchItem = menu.findItem(R.id.action_search);
+      //  SearchView searchView = (SearchView) searchItem.getActionView();
 
         // Configure the search info and add any event listeners...
 
@@ -96,12 +114,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.home) {
+        if (id == R.id.home && mAuth.getCurrentUser() == null) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
+        }
+        else if(id == R.id.home && mAuth.getCurrentUser() != null ){
+            mDrawerLayout.openDrawer(GravityCompat.START);
         }
         else if (id == R.id.action_login) {
             Intent login = new Intent(this, LoginActivity.class);
