@@ -3,7 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widged.TextView"/>
     <item
         android:id="@+id/action_search"
         android:title="Search"

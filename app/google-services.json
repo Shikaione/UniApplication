@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "454393331645-v10llk05uufcebajbkigrfqkhuuvuujl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mpetroiu.uniapplication",
+            "certificate_hash": "bf18a871a215d8c66762b198014e644be3f3b1aa"
+          }
+        },
+        {
           "client_id": "454393331645-vbl6hc2s3jm54dq44gl37llgra53qor0.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454393331645-vbl6hc2s3jm54dq44gl37llgra53qor0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
