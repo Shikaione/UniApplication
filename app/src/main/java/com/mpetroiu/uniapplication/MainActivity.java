@@ -4,6 +4,7 @@ package com.mpetroiu.uniapplication;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +22,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -32,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ActionBar mActionBar;
     private NavigationView mNavigationView;
-    private TextView mTextView;
     private SearchView mSearchView;
 
     private FirebaseAuth mAuth;
+
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -85,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private void setupNavigationDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        mTextView = (TextView) findViewById(R.id.textView);
                         switch (menuItem.getItemId()) {
                             case R.id.nav_places:
                                 menuItem.setChecked(true);
@@ -118,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawerLayout.closeDrawer(GravityCompat.START);
                                 startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                                 mAuth.signOut();
+                                mGoogleSignInClient.signOut();
                                 finish();
                                 return true;
                         }
