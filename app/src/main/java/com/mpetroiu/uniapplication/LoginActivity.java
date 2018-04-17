@@ -48,7 +48,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //init Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-
+        if(mAuth.getCurrentUser() != null){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     @Override
@@ -122,7 +125,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Log.e(TAG, "Exista User : " + user);
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
         } else {
             Log.e(TAG, "Exista User : " + user);
         }
