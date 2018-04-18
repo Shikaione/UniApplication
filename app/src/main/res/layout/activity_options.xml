@@ -11,15 +11,15 @@
 
     <RelativeLayout
         android:id="@+id/ownLogin"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/emailLogin"
             style="@style/login_btns"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="125dp"
+            android:layout_marginBottom="100dp"
             android:drawableLeft="@drawable/ic_mail"
             android:paddingLeft="30dp"
             android:paddingTop="4dp"
@@ -48,18 +48,31 @@
             android:background="@drawable/login_btns"
             android:text="@string/googleLogin"/>
         <Button
-            android:layout_marginTop="50dp"
             android:id="@+id/facebookLogin"
             android:drawableLeft="@drawable/ic_fb"
-            android:paddingLeft="30dp"
-            android:paddingTop="4dp"
             android:drawablePadding="30dp"
+            android:paddingTop="4dp"
+            android:paddingLeft="30dp"
             style="@style/login_btns"
             android:background="@drawable/login_btns"
+            android:layout_marginTop="20dp"
             android:text="@string/facebookLogin"
-            android:layout_below="@id/googleLogin"
-            android:layout_gravity="bottom"/>
-
+            android:layout_below="@id/googleLogin" />
+        <TextView
+            android:id="@+id/newUser"
+            style="@style/login_text_view"
+            android:text="@string/newUser"
+            android:textSize="18sp"
+            android:layout_below="@+id/facebookLogin"
+            android:layout_marginTop="60dp"/>
+        <TextView
+            android:id="@+id/useTerms"
+            style="@style/login_text_view"
+            android:text="@string/useTerms"
+            android:textSize="14sp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            />
     </RelativeLayout>
 
 

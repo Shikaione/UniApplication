@@ -50,14 +50,6 @@
             style="@style/login_buttons"
             android:text="@string/login" />
 
-        <TextView
-            android:id="@+id/newUser"
-            style="@style/login_text_view"
-            android:text="@string/newUser"
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"/>
-
-
     </LinearLayout>
 
 </RelativeLayout>

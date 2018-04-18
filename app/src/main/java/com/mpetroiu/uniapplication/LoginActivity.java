@@ -35,7 +35,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         inputPassword = findViewById(R.id.inputPass);
 
         findViewById(R.id.signIn).setOnClickListener(this);
-        findViewById(R.id.newUser).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -130,9 +129,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         int i = v.getId();
         if (i == R.id.signIn) {
             signIn(inputEmail.getText().toString(), inputPassword.getText().toString());
-        }
-        if(i == R.id.newUser){
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         }
     }
 }

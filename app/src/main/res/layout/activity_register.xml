@@ -68,7 +68,7 @@
             style="@style/login_text_view"
             android:text="@string/termsText"
             android:textSize="14sp" />
-        <include layout="@layout/separator_layout"></include>
+
     </LinearLayout>
 
 

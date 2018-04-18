@@ -59,6 +59,7 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.googleLogin).setOnClickListener(this);
         findViewById(R.id.facebookLogin).setOnClickListener(this);
         findViewById(R.id.emailLogin).setOnClickListener(this);
+        findViewById(R.id.newUser).setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -202,6 +203,9 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
         else if(i == R.id.emailLogin){
             Intent intent = new Intent(LoginOptionsActivity.this, LoginActivity.class);
             startActivity(intent);
+        }
+        else if(i == R.id.newUser){
+            startActivity(new Intent(LoginOptionsActivity.this, RegisterActivity.class));
         }
     }
 }
