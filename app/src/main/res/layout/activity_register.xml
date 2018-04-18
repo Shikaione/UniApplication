@@ -13,7 +13,6 @@
         android:id="@+id/linearRegister"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginHorizontal="48dp"
         android:gravity="center"
         android:orientation="vertical">
@@ -48,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/havingAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,25 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/background_one"
     tools:context=".LoginOptionsActivity">
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+
+    <RelativeLayout
+        android:id="@+id/ownLogin"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/email_sign_in_button"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/email_sign_in_button"
-        android:drawableLeft="@drawable/ic_mail"
+        <Button
+            android:id="@+id/emailLogin"
+            style="@style/login_btns"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/ic_mail"
+            android:paddingLeft="30dp"
+            android:paddingTop="4dp"
+            android:drawablePadding="30dp"
+            android:background="@drawable/login_btns"
+            android:text="@string/emailLogin"
+
+            />
+    </RelativeLayout>
+    <include layout="@layout/separator_layout"></include>
+    <RelativeLayout
+        android:id="@+id/mediaLogins"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/emailLogin"
-        />
+        android:layout_height="0dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/googleLogin"
+            style="@style/login_btns"
+            android:drawableLeft="@drawable/ic_google"
+            android:paddingLeft="30dp"
+            android:paddingTop="4dp"
+            android:drawablePadding="30dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/login_btns"
+            android:text="@string/googleLogin"/>
+        <Button
+            android:layout_marginTop="50dp"
+            android:id="@+id/facebookLogin"
+            android:drawableLeft="@drawable/ic_fb"
+            android:paddingLeft="30dp"
+            android:paddingTop="4dp"
+            android:drawablePadding="30dp"
+            style="@style/login_btns"
+            android:background="@drawable/login_btns"
+            android:text="@string/facebookLogin"
+            android:layout_below="@id/googleLogin"
+            android:layout_gravity="bottom"/>
+
+    </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

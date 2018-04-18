@@ -12,7 +12,8 @@
     <string name="signUp">Create account</string>
     <string name="newUser">New here? <b>Create an account</b> </string>
     <string name="emailLogin">Login with email</string>
-
+    <string name="facebookLogin">Login with Facebook</string>
+    <string name="googleLogin">Login with Google</string>
     <!--Text View Strings -->
     <string name="requiredText">Enter your details to log in to your account</string>
     <string name="welcomeText">Welcome Back!</string>
@@ -31,4 +32,7 @@
     <string name="settings">Application settings</string>
     <string name="account">Account settings</string>
 
+    <!-- Facebook Strings-->
+    <string name="facebook_app_id">1878652698871495</string>
+    <string name="fb_login_protocol_scheme">fb1878652698871495</string>
 </resources>

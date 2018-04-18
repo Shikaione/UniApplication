@@ -42,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         username = findViewById(R.id.username);
 
         findViewById(R.id.signUp).setOnClickListener(this);
+        findViewById(R.id.havingAccount).setOnClickListener(this);
 
         if(mAuth.getCurrentUser() != null){
             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
@@ -122,6 +123,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         int i = v.getId();
         if (i == R.id.signUp) {
             createAccount(inputEmail.getText().toString(), inputPassword.getText().toString());
+        }
+        else if(i == R.id.havingAccount){
+            startActivity(new Intent(RegisterActivity.this, LoginOptionsActivity.class));
         }
     }
 

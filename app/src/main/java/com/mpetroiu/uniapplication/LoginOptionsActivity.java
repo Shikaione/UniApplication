@@ -5,7 +5,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.firebase.auth.FacebookAuthProvider;
+
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -20,6 +34,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class LoginOptionsActivity extends BaseActivity implements View.OnClickListener {
@@ -32,12 +49,16 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
 
     private GoogleSignInClient mGoogleSignInClient;
 
+    private CallbackManager mCallbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.googleLogin).setOnClickListener(this);
+        findViewById(R.id.facebookLogin).setOnClickListener(this);
+        findViewById(R.id.emailLogin).setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -48,18 +69,17 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         mAuth = FirebaseAuth.getInstance();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        mCallbackManager = com.facebook.CallbackManager.Factory.create();
+
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -72,6 +92,40 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
             }
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+
+    private void handleFacebookAccessToken(com.facebook.AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        showProgressDialog();
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginOptionsActivity.this, "Authentication failed.",
+                                    LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        hideProgressDialog();
+                    }
+                });
+    }
+
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -104,7 +158,7 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void updateUI(FirebaseUser user) {
-       hideProgressDialog();
+        hideProgressDialog();
         if (user != null) {
             Log.e(TAG, "Exista User : " + user);
             Intent intent = new Intent(LoginOptionsActivity.this, MainActivity.class);
@@ -118,8 +172,36 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.sign_in_button) {
+        if (i == R.id.googleLogin) {
             signIn();
+        }
+        else if (i == R.id.facebookLogin) {
+            LoginManager.getInstance().logInWithReadPermissions(LoginOptionsActivity.this,
+                    Arrays.asList("email", "public_profile"));
+            LoginManager.getInstance().registerCallback(mCallbackManager,
+                    new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                    handleFacebookAccessToken(loginResult.getAccessToken());
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d(TAG, "facebook:onCancel");
+                    // ...
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d(TAG, "facebook:onError", error);
+                    // ...
+                }
+            });
+        }
+        else if(i == R.id.emailLogin){
+            Intent intent = new Intent(LoginOptionsActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
     }
 }

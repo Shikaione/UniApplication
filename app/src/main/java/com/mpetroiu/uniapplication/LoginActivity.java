@@ -3,7 +3,6 @@ package com.mpetroiu.uniapplication;
 import android.content.Intent;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
 
@@ -32,15 +31,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //View
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPass);
 
-        // Buttons
         findViewById(R.id.signIn).setOnClickListener(this);
         findViewById(R.id.newUser).setOnClickListener(this);
 
-        //init Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         if(mAuth.getCurrentUser() != null){
@@ -61,12 +57,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+        showProgressDialog();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
 
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -82,14 +79,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     LENGTH_SHORT).show();
                             updateUI(null);
                         }
 
-                        // ...
+                        hideProgressDialog();
                     }
                 });
     }

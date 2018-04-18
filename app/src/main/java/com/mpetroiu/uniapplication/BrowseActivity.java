@@ -51,7 +51,7 @@ public class BrowseActivity extends AppCompatActivity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.action_login:
-                startActivity(new Intent(BrowseActivity.this, LoginActivity.class));
+                startActivity(new Intent(BrowseActivity.this, LoginOptionsActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

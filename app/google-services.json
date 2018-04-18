@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "454393331645-pp9apk8pru3up2id1mfr0rsg3esvemh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mpetroiu.uniapplication",
+            "certificate_hash": "08e10b2ccef6486273be5b35d791d767c02e0d72"
+          }
+        },
+        {
           "client_id": "454393331645-v10llk05uufcebajbkigrfqkhuuvuujl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
