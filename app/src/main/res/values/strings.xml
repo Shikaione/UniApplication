@@ -22,6 +22,8 @@
     <string name="backToLoggin">Have an account?<b>\nLogIn</b></string>
     <string name="loading">Loading…</string>
     <string name="useTerms">Terms of Use</string>
+    <string name="logName">Your Name Here</string>
+    <string name="userEmail">YourEmail@here.com</string>
 
     <!--Fonts -->
     <string name="fontSerif">sans-serif</string>

@@ -30,19 +30,21 @@
         android:paddingRight="16dp">
 
         <TextView
+            android:id="@+id/logName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_vertical"
-            android:text="Desarrollador Android"
+            android:text="@string/logName"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
+            android:id="@+id/userEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_vertical"
-            android:text="thedahnark@gmail.com"
+            android:text="@string/userEmail"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>

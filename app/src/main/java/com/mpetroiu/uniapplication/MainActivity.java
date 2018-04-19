@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +33,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar mActionBar;
     private NavigationView mNavigationView;
     private SearchView mSearchView;
+    private TextView mUserName,mUserEmail;
+    private String name,email;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore;
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -53,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -61,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        getFirebaseItems();
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -78,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupNavigationDrawerContent(mNavigationView);
+
+        mUserName = findViewById(R.id.logName);
+        mUserEmail = findViewById(R.id.userEmail);
+
+        mUserName.setText(name);
+        mUserEmail.setText(email);
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,6 +164,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void getFirebaseItems(){
+        mFirestore.collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null){
+
+                }
+                for(DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()){
+                    name = documentChange.getDocument().getData().get("name").toString();
+                    email = documentChange.getDocument().getData().get("email").toString();
+                }
+            }
+        });
+    }
+
 }
 
 

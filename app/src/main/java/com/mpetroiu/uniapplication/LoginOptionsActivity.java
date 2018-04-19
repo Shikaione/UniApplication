@@ -72,8 +72,6 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
         mAuth = FirebaseAuth.getInstance();
 
         mCallbackManager = com.facebook.CallbackManager.Factory.create();
-
-
     }
 
     @Override

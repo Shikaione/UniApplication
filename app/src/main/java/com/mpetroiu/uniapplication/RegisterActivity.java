@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
-    private EditText inputEmail, inputPassword, username;
+    private EditText inputEmail, inputPassword, inputName;
 
 
     @Override
@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPass);
-        username = findViewById(R.id.username);
+        inputName = findViewById(R.id.username);
 
         findViewById(R.id.signUp).setOnClickListener(this);
         findViewById(R.id.havingAccount).setOnClickListener(this);
@@ -64,13 +64,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
 
-                            String name = username.getText().toString();
+                            String name = inputName.getText().toString();
+                            String email = inputEmail.getText().toString();
 
                             DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(mAuth.getUid());
 
                             Map<String, String> userMap = new HashMap<>();
 
                             userMap.put("name", name);
+                            userMap.put("email", email);
 
                             docRef.set(userMap);
 
@@ -92,12 +94,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private boolean validateForm() {
         boolean valid = true;
 
-        String name = username.getText().toString();
+        String name = inputName.getText().toString();
         if(TextUtils.isEmpty(name)){
-            username.setError("Required");
+            inputName.setError("Required");
             valid = false;
         }else{
-            username.setError(null);
+            inputName.setError(null);
         }
 
         String email = inputEmail.getText().toString();
