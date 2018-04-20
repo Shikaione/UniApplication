@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.AccessToken;
@@ -33,9 +36,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -50,6 +60,10 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
     private GoogleSignInClient mGoogleSignInClient;
 
     private CallbackManager mCallbackManager;
+
+    private Profile mProfile;
+
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +80,11 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
                 .requestEmail()
                 .build();
 
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         mAuth = FirebaseAuth.getInstance();
 
-        mCallbackManager = com.facebook.CallbackManager.Factory.create();
+        mCallbackManager = CallbackManager.Factory.create();
     }
 
     @Override
@@ -111,6 +124,17 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
+
+                            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(mAuth.getUid());
+
+                            Map<String, String> userMap = new HashMap<>();
+
+                            userMap.put("name", mProfile.getFirstName()+ " " + mProfile.getLastName());
+
+                            userMap.put("email", email);
+
+                            docRef.set(userMap);
+
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -126,7 +150,7 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         showProgressDialog();
@@ -138,6 +162,19 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
+
+                            String personName = acct.getDisplayName();
+                            String personEmail = acct.getEmail();
+
+                            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(mAuth.getUid());
+
+                            Map<String, String> userMap = new HashMap<>();
+
+                            userMap.put("name", personName);
+                            userMap.put("email", personEmail);
+
+                            docRef.set(userMap);
+
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -183,6 +220,29 @@ public class LoginOptionsActivity extends BaseActivity implements View.OnClickLi
                 public void onSuccess(LoginResult loginResult) {
                     Log.d(TAG, "facebook:onSuccess:" + loginResult);
                     handleFacebookAccessToken(loginResult.getAccessToken());
+
+                        // App code
+                        mProfile = Profile.getCurrentProfile();
+
+                        Log.e("OnGraph", "------------------------");
+
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(
+                                            JSONObject object,
+                                            GraphResponse response) {
+
+                                        email = object.optString("email");
+
+                                        Log.e("GraphResponse", "-------------" + response.toString());
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,link,gender,birthday,email");
+                        request.setParameters(parameters);
+                        request.executeAsync();
                 }
 
                 @Override
