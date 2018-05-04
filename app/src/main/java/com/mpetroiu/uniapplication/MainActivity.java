@@ -1,50 +1,31 @@
 package com.mpetroiu.uniapplication;
 
-
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentListenOptions;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.zip.Inflater;
 
@@ -179,15 +160,11 @@ public class MainActivity extends AppCompatActivity {
                                 mActionBar.setTitle(menuItem.getTitle());
                                 mDrawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
-                            case R.id.nav_account:
-                                menuItem.setChecked(true);
-                                mActionBar.setTitle(menuItem.getTitle());
-                                mDrawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
                             case R.id.nav_settings:
                                 menuItem.setChecked(true);
                                 mActionBar.setTitle(menuItem.getTitle());
                                 mDrawerLayout.closeDrawer(GravityCompat.START);
+                                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                                 return true;
                             case R.id.action_logout:
                                 menuItem.setChecked(true);
