@@ -67,15 +67,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            /*mFirestore.collection("users").document("user").addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                @Override
-                                public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                                    String user = documentSnapshot.getString("name");
-
-                                    Toast.makeText(LoginActivity.this, "Welcome back " + user, LENGTH_SHORT).show();
-                                }
-                            });*/
-
                             updateUI(user);
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());

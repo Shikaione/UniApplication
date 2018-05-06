@@ -14,7 +14,9 @@
     <string name="emailLogin">Login with email</string>
     <string name="facebookLogin">Login with Facebook</string>
     <string name="googleLogin">Login with Google</string>
+    <string name="change">Change</string>
     <!--Text View Strings -->
+    <string name="changePassword">Change Password</string>
     <string name="requiredText">Enter your details to log in to your account</string>
     <string name="welcomeText">Welcome Back!</string>
     <string name="createText">Create an account</string>
@@ -31,10 +33,17 @@
     <!--Navigation strings-->
     <string name="favorite">Favorite places</string>
     <string name="places">Featured places</string>
-    <string name="settings">Application settings</string>
-    <string name="account">Account settings</string>
+    <string name="settings">Settings</string>
+
+    <!--Tabs strings-->
+    <string name="tabAccount">Account</string>
+    <string name="tabApplication">Application</string>
+    <string name="tabPassword">Password</string>
 
     <!-- Facebook Strings-->
     <string name="facebook_app_id">1878652698871495</string>
     <string name="fb_login_protocol_scheme">fb1878652698871495</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

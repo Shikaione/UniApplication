@@ -1,43 +1,33 @@
 package com.mpetroiu.uniapplication;
 
-
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView mNavigationView;
     private SearchView mSearchView;
     private TextView mUserName,mUserEmail;
-    private String name,email;
+    private String uid;
+    private FrameLayout mFrameLayout;
+    private Inflater mInflater;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
-
+    private FirebaseUser mUser;
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -61,8 +53,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        View header = findViewById(R.id.nav_view);
+
+
+
+
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
+
+        mUser = mAuth.getCurrentUser();
+        if(mUser != null){
+            uid = mUser.getUid();
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -71,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        getFirebaseItems();
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -91,11 +91,32 @@ public class MainActivity extends AppCompatActivity {
 
         setupNavigationDrawerContent(mNavigationView);
 
-        mUserName = findViewById(R.id.logName);
-        mUserEmail = findViewById(R.id.userEmail);
+        View headerView = mNavigationView.getHeaderView(0);
 
-        mUserName.setText(name);
-        mUserEmail.setText(email);
+        mUserName = (TextView) headerView.findViewById(R.id.logName);
+        mUserEmail = (TextView) headerView.findViewById(R.id.userEmail);
+
+    }
+
+    private void addContentView(int nav_header) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mFirestore.collection("users").document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+
+                if(documentSnapshot != null){
+                  mUserName.setText(documentSnapshot.getString("name"));
+                  mUserEmail.setText(documentSnapshot.getString("email"));
+                }
+
+            }
+        });
 
     }
 
@@ -139,15 +160,11 @@ public class MainActivity extends AppCompatActivity {
                                 mActionBar.setTitle(menuItem.getTitle());
                                 mDrawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
-                            case R.id.nav_account:
-                                menuItem.setChecked(true);
-                                mActionBar.setTitle(menuItem.getTitle());
-                                mDrawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
                             case R.id.nav_settings:
                                 menuItem.setChecked(true);
                                 mActionBar.setTitle(menuItem.getTitle());
                                 mDrawerLayout.closeDrawer(GravityCompat.START);
+                                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                                 return true;
                             case R.id.action_logout:
                                 menuItem.setChecked(true);
@@ -164,22 +181,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    private void getFirebaseItems(){
-        mFirestore.collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
-
-                }
-                for(DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()){
-                    name = documentChange.getDocument().getData().get("name").toString();
-                    email = documentChange.getDocument().getData().get("email").toString();
-                }
-            }
-        });
-    }
-
 }
 
 

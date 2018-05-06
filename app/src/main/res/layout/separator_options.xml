@@ -15,7 +15,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:textSize="14sp"
-    android:text="or"
+    android:text="@string/orSeparator"
     android:alpha="1"
     android:textColor="@color/backgroundGray"/>
 
