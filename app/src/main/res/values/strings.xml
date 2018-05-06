@@ -14,7 +14,11 @@
     <string name="emailLogin">Login with email</string>
     <string name="facebookLogin">Login with Facebook</string>
     <string name="googleLogin">Login with Google</string>
+    <string name="linkFacebook">Link Facebook</string>
+    <string name="linkGoogle">Link Google</string>
+    <string name="deleteAccount">Delete Account</string>
     <string name="change">Change</string>
+
     <!--Text View Strings -->
     <string name="changePassword">Change Password</string>
     <string name="requiredText">Enter your details to log in to your account</string>
@@ -27,8 +31,9 @@
     <string name="logName">Your Name Here</string>
     <string name="userEmail">YourEmail@here.com</string>
 
-    <!--Fonts -->
-    <string name="fontSerif">sans-serif</string>
+    <!--Radio Strings-->
+    <string name="sexM">Male</string>
+    <string name="sexF">Female</string>
 
     <!--Navigation strings-->
     <string name="favorite">Favorite places</string>
@@ -44,6 +49,17 @@
     <string name="facebook_app_id">1878652698871495</string>
     <string name="fb_login_protocol_scheme">fb1878652698871495</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Separator Strings-->
+    <string name="orSeparator">or</string>
+    <string name="accountActions">Account actions</string>
+    <string name="notifcationSeparator">Notification settings</string>
+
+    <!--Hints Strings-->
+    <string name="userFirstName">First name</string>
+    <string name="userLastName">Last Name</string>
+    <string name="userAddress">Address</string>
+    <string name="gender">Gender : </string>
+    <string name="enablePushNotification">Enable Push Notifications</string>
+    <string name="subscribeMail">Subscribe to receive Email Notifications</string>
+    <string name="subscribeExplenation">By Subscribing to our Email Notifications you will receive recommendations about new places that you could visit, single or with your friends!</string>
 </resources>

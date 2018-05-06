@@ -3,12 +3,185 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundAppGray"
     tools:context=".AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/accountContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="plm" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/topDetails"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/default_user"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/firstname"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:hint="@string/userFirstName"
+                    style="@style/editText_no_margin"/>
+
+                <EditText
+                    android:id="@+id/lastname"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:hint="@string/userLastName"
+                    style="@style/editText_no_margin"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_below="@+id/topDetails"/>
+
+        <LinearLayout
+            android:id="@+id/bottomDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:orientation="vertical"
+            android:layout_below="@+id/topDetails">
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:hint="@string/userAddress"
+                style="@style/editText_no_margin"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/labelGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/gender"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <RadioGroup
+                    android:id="@+id/genderSelect"
+                   android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sexM"
+                        android:backgroundTint="@color/colorPrimaryDark"/>
+                    <RadioButton
+                        android:id="@+id/radioF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sexF"
+                        android:backgroundTint="@color/colorPrimaryDark"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <include layout="@layout/separator_account"></include>
+
+            <Button
+                android:id="@+id/googleLink"
+                style="@style/link_btns"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_btns"
+                android:drawableLeft="@drawable/ic_google"
+                android:drawablePadding="37dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="4dp"
+                android:text="@string/linkGoogle" />
+            <Button
+                android:id="@+id/facebookLink"
+                android:drawableLeft="@drawable/ic_fb"
+                android:drawablePadding="30dp"
+                android:paddingTop="4dp"
+                android:paddingLeft="30dp"
+                style="@style/link_btns"
+                android:background="@drawable/login_btns"
+                android:layout_marginTop="10dp"
+                android:text="@string/linkFacebook" />
+
+            <Button
+                android:id="@+id/deleteAccount"
+                android:drawableLeft="@drawable/ic_delete"
+                android:drawablePadding="30dp"
+                android:paddingTop="4dp"
+                android:paddingLeft="37dp"
+                style="@style/link_btns"
+                android:background="@drawable/login_btns"
+                android:layout_marginTop="10dp"
+                android:text="@string/deleteAccount" />
+
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_check"
+            android:backgroundTint="@color/colorPrimaryDark"
+            app:borderWidth="0dp"
+            android:layout_margin="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
 
 </FrameLayout>

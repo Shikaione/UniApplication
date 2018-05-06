@@ -27,6 +27,35 @@
         <item name="android:ems">10</item>
         <item name="android:textColor">#4c4c4c</item>
         <item name="android:textCursorDrawable">@null</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="editText_no_margin">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/edit_text_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:textColor">#4c4c4c</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="spinner_custom">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:textColor">#4c4c4c</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <!-- Stil pentru butoanele din Login Activity si Register.-->
@@ -70,6 +99,16 @@
         <item name="android:elevation">5dp</item>
         <item name="android:layout_marginLeft">60dp</item>
         <item name="android:layout_marginRight">60dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="link_btns">
+        <item name="android:layout_width">match_parent</item>>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textAllCaps">false</item>
     </style>

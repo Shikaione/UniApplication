@@ -5,10 +5,41 @@
     android:layout_height="match_parent"
     tools:context=".ApplicationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="dutenplm" />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:layout_marginRight="30dp"
+      android:layout_marginLeft="30dp">
+
+      <include layout="@layout/separator_notifications"></include>
+
+      <CheckBox
+          android:id="@+id/pushNotification"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/enablePushNotification"
+          android:backgroundTint="@color/colorPrimaryDark"/>
+
+      <CheckBox
+          android:id="@+id/subscribeMail"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:text="@string/subscribeMail"
+          android:backgroundTint="@color/colorPrimaryDark"/>
+
+      <TextView
+          android:id="@+id/subscribeExplenation"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="@string/subscribeExplenation"
+          android:layout_marginLeft="30dp"
+          android:textSize="12sp"/>
+
+
+
+  </LinearLayout>
 
 </FrameLayout>

@@ -29,7 +29,7 @@
 
             />
     </RelativeLayout>
-    <include layout="@layout/separator_layout"></include>
+    <include layout="@layout/separator_options"></include>
     <RelativeLayout
         android:id="@+id/mediaLogins"
         android:layout_weight="1"

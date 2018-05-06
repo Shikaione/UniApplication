@@ -34,10 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
-        final PageAdapter mPageAdapter = new PageAdapter(getSupportFragmentManager(), mTabLayout.getChildCount());
-
-
-
+        final PageAdapter mPageAdapter = new PageAdapter(getSupportFragmentManager(), 3);
 
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
