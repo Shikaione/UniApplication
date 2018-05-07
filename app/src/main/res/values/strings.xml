@@ -62,4 +62,8 @@
     <string name="enablePushNotification">Enable Push Notifications</string>
     <string name="subscribeMail">Subscribe to receive Email Notifications</string>
     <string name="subscribeExplenation">By Subscribing to our Email Notifications you will receive recommendations about new places that you could visit, single or with your friends!</string>
+
+    <!--Notification Strings-->
+    <string name="default_notification_channel_id">Channel ID</string>
+
 </resources>
