@@ -44,6 +44,7 @@
             style="@style/editText_style"
             android:inputType="textPassword" />
         <LinearLayout
+            android:id="@+id/createAccLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView

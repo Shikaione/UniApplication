@@ -65,5 +65,6 @@
 
     <!--Notification Strings-->
     <string name="default_notification_channel_id">Channel ID</string>
+    <string name="auth_failed">Authentication Failed Sir</string>
 
 </resources>
